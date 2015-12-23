@@ -27,14 +27,25 @@ public class Personne {
     }
 
     public boolean peutVoler(TypeAvion t) {
+        if (this.typeAvionOperationnel.contains(t)) {
+            return true;
+        }
         return false;
     }
 
     public boolean addQualification(TypeAvion type) {
+        if(this.typeAvionOperationnel.size() < 2) {
+            this.typeAvionOperationnel.add(type);
+            return true;
+        }
         return false;
     }
 
-    public boolean delQualification(TypeAvion type, boolean fromType){
+    public boolean delQualification(TypeAvion type, boolean fromType){  //a quoi sert fromType ??????
+        if(this.typeAvionOperationnel.contains(type)) {
+            this.typeAvionOperationnel.remove(type);
+            return true;
+        }
         return false;
     }
 }

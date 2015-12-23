@@ -34,18 +34,27 @@ public class Vol {
     }
 
     public void addPilote(Pilote p) {
-
+        this.equipage.addPilote(p);
     }
 
     public void addCoPilote(Copilote c) {
-
+        this.equipage.addCoPilote(c);
     }
 
     public boolean addPNC(Pnc p) {
+        boolean result = this.equipage.addPNC(p);
+        if (result) {
+            return true;
+        }
         return false;
     }
 
     public boolean equipageAuComplet() {
+        if(this.equipage.getPilote() != null && this.equipage.getCopilote() != null) {
+            if (this.equipage.getListePnc().size() > this.avion.getType().getMinPNC() && this.equipage.getListePnc().size() < this.avion.getType().getMaxPNC()) {
+                return true;
+            }
+        }
         return false;
     }
 }
