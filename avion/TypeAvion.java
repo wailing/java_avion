@@ -1,5 +1,7 @@
 package avion;
 
+import exception.EquipageException;
+import exception.InvariantBroken;
 import membreEquipe.Personne;
 
 /**
@@ -23,15 +25,19 @@ public class TypeAvion {
         this.max = 1;
     }
 
-    public void addQualifie(Personne m) {
-
+    public void addQualifie(Personne m) throws EquipageException {
+        try {
+            m.addQualification(this);
+        } catch (InvariantBroken i) {
+            System.out.println(i.getMessage());
+        }
     }
 
-    public void delQualifie(Personne m) {
-
+    public void delQualifie(Personne m) throws EquipageException {
+        m.delQualification(this, true); /// fromType ???
     }
 
-    public void purgeQualifies() {
+    public void purgeQualifies()throws EquipageException, InvariantBroken { // ????
 
     }
 
@@ -45,5 +51,14 @@ public class TypeAvion {
 
     public int getMaxPNC() {
         return max;
+    }
+
+    @Override
+    public String toString() {
+       String chaine = "\n ----------------\nType d'avion : " + getNom();
+        chaine += "\nMinimum de PNC : " + getMinPNC();
+        chaine += "\nMaximum de PNC : " + getMaxPNC();
+        chaine += "\n ----------------\n";
+        return chaine;
     }
 }

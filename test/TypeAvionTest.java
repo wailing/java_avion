@@ -1,10 +1,42 @@
 package test;
 
+import avion.TypeAvion;
+import exception.EquipageException;
+import exception.InvariantBroken;
+import membreEquipe.Personne;
+import membreEquipe.Pilote;
+import org.junit.Test;
+
 import static org.junit.Assert.*;
 
 /**
- * Created by anais on 28/12/2015.
+ * Created by Anaïs Ha and Marieme Ba on 23/12/2015.
  */
 public class TypeAvionTest {
 
+    @Test
+    public void testAddQualifie() {
+        try {
+            Pilote pilote = new Pilote("Ha", "Anais");
+            TypeAvion airbus = new TypeAvion("Airbus", 2, 3);
+
+            pilote.addQualification(airbus);
+
+            assertTrue(pilote.getTypeAvionOperationnel().contains(airbus));
+        } catch (InvariantBroken i) {
+            System.out.println(i.getMessage());
+        } catch (EquipageException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    @Test
+    public void testDelQualifie() {
+
+    }
+
+    @Test
+    public void testPurgeQualifies() { // ????
+
+    }
 }

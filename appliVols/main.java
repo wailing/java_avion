@@ -2,7 +2,11 @@ package appliVols;
 
 import avion.Avion;
 import avion.TypeAvion;
-import equipage.Equipage;
+//import equipage.Equipage;
+import exception.EquipageException;
+import exception.InvariantBroken;
+import membreEquipe.Copilote;
+import membreEquipe.Pilote;
 import vol.Vol;
 
 import java.util.Date;
@@ -14,17 +18,26 @@ import java.util.Date;
 public class main {
 
     public static void main(String[] args) {
-       /* TypeAvion type = new TypeAvion("AF380", 1, 3);
+        TypeAvion type = new TypeAvion("AF380", 1, 3);
         Avion av = new Avion(type, "AF380");
         Date date = new Date();
         Vol v = new Vol("13562", "Orly", "Londres", av, date);
-        Equipage equipage = new Equipage(v);
 
-        System.out.println("Type d'avion : " + type.getNom() + " Minimum : " + type.getMinPNC() + " Maximum : " + type.getMaxPNC() + "\n");
-        System.out.println("Avion : " + av.getType().getNom() + " Reference " + av.getReference() + "\n");
-        System.out.println("Vol : " + v.getNumero() + " Destination : " + v.getDestination() + " Site : "  + v.getSite() + " Avion: " + v.getAvion().getType().getNom() + " Date : " + v.getDateDepart().toString() +  "\n");
-        System.out.println("Equipage : pilote : " + equipage.getPilote().getNom() + " Copilote : " + equipage.getCopilote().getPrenom() + " PNC : " + equipage.getListePnc().size() +  "\n");
-    */
+        try {
+            Pilote pilote = new Pilote("Ha", "Anais");
+            pilote.addQualification(type);
+            v.addPilote(pilote);
+            Copilote copilote = new Copilote("Ba", "Marieme");
+            v.addCoPilote(copilote);
+            copilote.addQualification(type);
+            v.addCoPilote(copilote);
+            System.out.println(v.toString());
+            copilote.addQualification(type);
+        } catch (EquipageException e) {
+            System.out.println(e.getMessage());
+        } catch (InvariantBroken i) {
+            System.out.println(i.getMessage());
+        }
     }
 
 

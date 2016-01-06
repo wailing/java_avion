@@ -20,4 +20,13 @@ public class Avion {
     public TypeAvion getType() {
         return typeAvion;
     }
+
+    @Override
+    public String toString() {
+        String chaine = "\n\n*******************************************";
+        chaine += "\nReference de l'avion : " + getReference();
+        chaine += getType().toString();
+        chaine += "\n\n*******************************************";
+        return chaine;
+    }
 }
