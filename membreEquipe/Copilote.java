@@ -12,6 +12,11 @@ public class Copilote extends Personne {
     }
 
     @Override
+    public String getFonction() {
+        return "Copilote";
+    }
+
+    @Override
     public String toString() {
         String resultat = super.toString();
         resultat += "\nFonction : Copilote";

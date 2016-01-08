@@ -31,15 +31,22 @@ public class Vol {
             Equipage.this.vol = v;
         }
 
-        public void addPilote(Pilote p) {
-            this.pilote = p;
+        public void addPilote(Pilote p) throws EquipageException{
+
+            if (this.pilote == null ) {
+                this.pilote = p;
+            }
+            else throw new EquipageException("Un pilote est déjà inscrit :" + getPilote().getNom() + " " + getPilote().getPrenom() + "\n");
         }
 
-        public void addCoPilote(Copilote c) {
-            this.copilote = c;
+        public void addCoPilote(Copilote c) throws EquipageException {
+            if(this.copilote == null) {
+                this.copilote = c;
+            }
+            else throw new EquipageException("Un pilote est déjà inscrit :" + getCopilote().getNom() + " " + getCopilote().getPrenom() + "\n");
         }
 
-        public boolean addPNC(Pnc p) {
+        public boolean addPNC(Pnc p) throws EquipageException {
             if(isAuMin() && isAuMax()) {
                 return false;
             }
@@ -49,7 +56,10 @@ public class Vol {
                     Equipage.this.auMin = true;
                 }
                 else {
-                    Equipage.this.listePnc.add(p);
+                    if(!this.listePnc.contains(p)) {
+                        Equipage.this.listePnc.add(p);
+                    }
+                    else throw new EquipageException("Un pilote est déjà inscrit :" + p.getNom() + " " + p.getPrenom() + "\n");
                 }
             }
             return false;
@@ -79,7 +89,27 @@ public class Vol {
             return vol;
         }
 
-        @Override
+         public void setAuMin(boolean auMin) {
+             this.auMin = auMin;
+         }
+
+         public void setAuMax(boolean auMax) {
+             this.auMax = auMax;
+         }
+
+         public void setPilote(Pilote pilote) {
+             this.pilote = pilote;
+         }
+
+         public void setCopilote(Copilote copilote) {
+             this.copilote = copilote;
+         }
+
+         public void setListePnc(ArrayList<Pnc> listePnc) {
+             this.listePnc = listePnc;
+         }
+
+         @Override
         public String toString() {
             String chaine = "\n\n*******************************************";
             chaine += "\nEquipage de l'avion " + getVol().getNumero();
@@ -95,11 +125,11 @@ public class Vol {
     private String numero;
     private String site;
     private String destination;
-    private Date dateDepart;
+    private String dateDepart;
     private Equipage equipage;
     private Avion avion;
 
-    public Vol(String num, String site, String dest, Avion av, Date dep) {
+    public Vol(String num, String site, String dest, Avion av, String dep) {
         this.numero = num;
         this.site = site;
         this.destination = dest;
@@ -108,7 +138,7 @@ public class Vol {
         this.equipage = new Equipage(this);
     }
 
-    public Vol(String num, Date dep) {
+    public Vol(String num, String dep) {
         this.numero = num;
         this.dateDepart = dep;
         this.site = null;
@@ -173,7 +203,7 @@ public class Vol {
         return destination;
     }
 
-    public Date getDateDepart() {
+    public String getDateDepart() {
         return dateDepart;
     }
 
@@ -197,6 +227,22 @@ public class Vol {
         return equipage.getListePnc();
     }
 
+    public void setPilote(Pilote pilote) {
+         equipage.setPilote(pilote);
+    }
+
+    public void setCopilote(Copilote copilote) {
+         equipage.setCopilote(copilote);
+    }
+
+    public void setListePnc(Pnc pnc) throws EquipageException{
+        if(equipage.getListePnc().contains(pnc)) {
+            equipage.getListePnc().remove(pnc);
+        }
+        else {
+            throw new EquipageException("Le PNC de l'equipage n'existe pas");
+        }
+    }
 
     @Override
     public String toString() {

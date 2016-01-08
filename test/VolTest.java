@@ -34,7 +34,7 @@ public class VolTest {
     public void testAddPilote(){
         try {
             Date date = new Date();
-            Vol vol1 = new Vol("AF001", "Orly", "Londres", avion, date);
+            Vol vol1 = new Vol("AF001", "Orly", "Londres", avion, "8/12/2015");
 
             Pilote p = new Pilote("Ha", "Anais");
             vol1.addPilote(p);
@@ -42,14 +42,14 @@ public class VolTest {
             assertEquals(vol1.getPilote().getNom(), p.getNom());
             assertEquals(vol1.getPilote().getPrenom(), p.getPrenom());
 
-            Vol vol2 = new Vol("AF002", "Roissy", "Barcelone", avion1, date);
+            Vol vol2 = new Vol("AF002", "Roissy", "Barcelone", avion1, "2/12/2015");
             Pilote p1 = new Pilote("Ba", "Marieme");
             vol2.addPilote(p1);
 
             assertEquals(vol2.getPilote().getNom(), p1.getNom());
             assertEquals(vol2.getPilote().getPrenom(), p1.getPrenom());
 
-            Vol vol3 = new Vol("AF003", "Orly", "Madrid", avion2, date);
+            Vol vol3 = new Vol("AF003", "Orly", "Madrid", avion2, "12/12/2015");
 
             assertEquals(null, vol3.getPilote().getNom());
             assertEquals(null, vol3.getPilote().getPrenom());
@@ -63,8 +63,7 @@ public class VolTest {
     @Test
     public void testAddCoPilote() {
         try {
-            Date date = new Date();
-            Vol vol1 = new Vol("AF001", "Orly", "Londres", avion, date);
+            Vol vol1 = new Vol("AF001", "Orly", "Londres", avion, "10/12/2015");
 
             Copilote c = new Copilote("Ha", "Anais");
             vol1.addCoPilote(c);
@@ -72,14 +71,14 @@ public class VolTest {
             assertEquals(vol1.getPilote().getNom(), c.getNom() );
             assertEquals(vol1.getCopilote().getPrenom(), c.getPrenom());
 
-            Vol vol2 = new Vol("AF002", "Roissy", "Barcelone", avion1, date);
+            Vol vol2 = new Vol("AF002", "Roissy", "Barcelone", avion1, "11/12/2015");
             Copilote c1 = new Copilote("Ba", "Marieme");
             vol2.addCoPilote(c1);
 
             assertEquals(vol2.getCopilote().getNom(), c1.getNom());
             assertEquals(vol2.getCopilote().getPrenom(), c1.getPrenom());
 
-            Vol vol3 = new Vol("AF003", "Orly", "Madrid", avion2, date);
+            Vol vol3 = new Vol("AF003", "Orly", "Madrid", avion2, "12/12/2015");
 
             assertEquals(null, vol3.getCopilote().getNom());
             assertEquals(null, vol3.getCopilote().getPrenom());
@@ -94,21 +93,21 @@ public class VolTest {
     public void testAddPNC() {
         try {
             Date date = new Date();
-            Vol vol1 = new Vol("AF001", "Orly", "Londres", avion, date);
+            Vol vol1 = new Vol("AF001", "Orly", "Londres", avion, "13/12/2015");
 
             Pnc p = new Pnc("Ha", "Anais");
             vol1.addPNC(p);
 
             assertTrue("Le PNC existe : ", vol1.getListePnc().contains(p));
 
-            Vol vol2 = new Vol("AF002", "Roissy", "Barcelone", avion1, date);
+            Vol vol2 = new Vol("AF002", "Roissy", "Barcelone", avion1, "14/12/2015");
             Pnc p1 = new Pnc("Ba", "Marieme");
             vol2.addPNC(p1);
 
             assertTrue("Le PNC existe : ", vol2.getListePnc().contains(p1));
             assertFalse("Le PNC existe : ", vol2.getListePnc().contains(p));
 
-            Vol vol3 = new Vol("AF003", "Orly", "Madrid", avion2, date);
+            Vol vol3 = new Vol("AF003", "Orly", "Madrid", avion2, "15/12/2015");
 
             assertTrue(vol3.getListePnc().size() == 0);
             vol3.addPNC(p);
@@ -129,8 +128,7 @@ public class VolTest {
     @Test
     public void testEquipageAuComplet() {
         try {
-            Date date = new Date();
-            Vol vol1 = new Vol("AF001", "Orly", "Londres", avion, date);
+            Vol vol1 = new Vol("AF001", "Orly", "Londres", avion, "16/12/2015");
             Pilote pilote = new Pilote("Ba", "Marieme");
             Copilote copilote = new Copilote("Bla", "Blabla");
             Pnc p = new Pnc("Ha", "Anais");
@@ -140,7 +138,7 @@ public class VolTest {
 
             assertTrue(vol1.equipageAuComplet());
 
-            Vol vol2 = new Vol("AF002", "Roissy", "Barcelone", avion1, date);
+            Vol vol2 = new Vol("AF002", "Roissy", "Barcelone", avion1, "17/12/2015");
 
             vol2.addPilote(pilote);
             vol2.addCoPilote(copilote);
@@ -153,7 +151,7 @@ public class VolTest {
 
             assertTrue(vol2.equipageAuComplet());
 
-            Vol vol3 = new Vol("AF003", "Orly", "Madrid", avion2, date);
+            Vol vol3 = new Vol("AF003", "Orly", "Madrid", avion2, "18/12/2015");
 
             assertFalse(vol3.equipageAuComplet());
 

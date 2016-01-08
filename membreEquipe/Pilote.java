@@ -12,6 +12,11 @@ public class Pilote extends Personne{
     }
 
     @Override
+    public String getFonction() {
+        return "Pilote";
+    }
+
+    @Override
     public String toString() {
         String resultat = super.toString();
         resultat += "\nFonction : Pilote";

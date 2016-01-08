@@ -10,7 +10,7 @@ import exception.InvariantBroken;
 /**
  * Created by Anaïs Ha and Marieme Ba on 23/12/2015.
  */
-public class Personne {
+public abstract class Personne {
     private String nom;
     private String prenom;
     private ArrayList<TypeAvion> typeAvionOperationnel;
@@ -59,6 +59,8 @@ public class Personne {
         }
         return false;
     }
+    
+    public abstract String getFonction();
 
     @Override
     public String toString() {

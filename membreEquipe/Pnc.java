@@ -12,6 +12,11 @@ public class Pnc extends Personne{
     }
 
     @Override
+    public String getFonction() {
+        return "PNC";
+    }
+
+    @Override
     public String toString() {
         String resultat = super.toString();
         resultat += "\nFonction : Personnels navigants et commerciaux (PNC)";
