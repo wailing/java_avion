@@ -54,6 +54,7 @@ public class TableauVols {
             return listeTypeAvion;
         }
     }
+
     private Aeroport aeroport;
     private final String Pilote = "Pilote";
     private final String Copilote = "Copilote";
@@ -257,10 +258,10 @@ public class TableauVols {
     }
 
     public void afficherVolMembreEquipe(String nomMembre, String prenomMembre, String fonction, String num) {
+     //a
         try {
             Vol vol = trouverVol(aeroport, num);
             Personne membre = trouverPersonne(aeroport, nomMembre, prenomMembre, fonction);
-
             System.out.println(vol.toString());
         } catch (NullException n) {
             System.out.println(n.getMessage());
@@ -274,7 +275,6 @@ public class TableauVols {
     public ArrayList<Personne> getListePersonne() {
         return aeroport.getListePersonne();
     }
-
 
     public ArrayList<Vol> getListeVols() {
         return aeroport.getListeVols();

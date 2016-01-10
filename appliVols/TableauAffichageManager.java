@@ -1,5 +1,7 @@
 package appliVols;
 
+import affichageVols.TableauVols;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -52,8 +54,27 @@ public class TableauAffichageManager extends JFrame {
         }
 
         public void actionPerformed(ActionEvent e) {
-
             //new JTableBasiqueAvecModeleDynamiqueObjet().setVisible(true);
+            TableauVols CDG = new TableauVols("CDG");
+            CDG.creerTypeAvion("Airbus A380", 2, 3);
+            CDG.creerAvion("Airbus", "Airbus A380");
+            CDG.creerVol("123", CDG.getNomAeroport(), "Londres", "Airbus", "10/11/12");
+            CDG.creerPilote("Ha", "Anais");
+            CDG.creerCopilote("Ba", "Marieme");
+            CDG.creerPnc("Chau", "Mickael");
+            CDG.creerPnc("Ha", "Anais");
+
+            CDG.qualifierMembreEquipage("Ha", "Anais", "Pilote", "Airbus A380");
+            CDG.qualifierMembreEquipage("Ba", "Marieme", "Copilote", "Airbus A380");
+            CDG.qualifierMembreEquipage("Ha", "Anais", "PNC", "Airbus A380");
+            CDG.qualifierMembreEquipage("Chau", "Mickael", "PNC", "Airbus A380");
+
+            CDG.affecterMembreVol("Ha", "Anais", "Pilote", "123");
+            CDG.affecterMembreVol("Ha", "Anais", "PNC", "123");
+            CDG.affecterMembreVol("Ba", "Marieme", "Copilote", "123");
+            CDG.affecterMembreVol("Chau", "Mickael", "PNC", "123");
+            VolTab vol = new VolTab(CDG.getListeVols().get(0).getAvion().getReference(), CDG.getListeVols().get(0).getNumero(), CDG.getListeVols().get(0).getDestination(), CDG.getListeVols().get(0).getDateDepart(), CDG.getListeVols().get(0).getAvion().getType().getNom(), CDG.getNomAeroport() ,CDG.getListeVols().get(0).getEquipage().getPilote().getNom(), CDG.getListeVols().get(0).getEquipage().getPilote().getPrenom(), CDG.getListeVols().get(0).getEquipage().getPilote().getFonction());
+            modele.addAmi(vol);
         }
     }
     private class RetourAction extends AbstractAction {

@@ -9,7 +9,6 @@ import membreEquipe.Pnc;
 import vol.Vol;
 import avion.TypeAvion;
 import affichageVols.TableauVols;
-import affichageVols.Aeroport;
 
 import javax.swing.table.AbstractTableModel;
 import java.awt.*;
@@ -22,6 +21,7 @@ public class ModeleTableauAffichageManager extends AbstractTableModel {
     private final List<VolTab> amis = new ArrayList<VolTab>();
 
     private final String[] entetes = {"Avion", "Vol", "Dest", "Date", "Type","Site","Prenom","Nom","Fonction"};
+
 
     TypeAvion type = new TypeAvion("A320", 1, 3);
     Avion av = new Avion(type, "13562");

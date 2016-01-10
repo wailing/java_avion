@@ -212,7 +212,6 @@ public class TableauVolsTest {
         CDG.creerTypeAvion("Boeing 747");
         CDG.creerAvion("Airbus", "Airbus A380");
         CDG.creerAvion("Boeing", "Boeing 747");
-
         CDG.creerVol("123", CDG.getNomAeroport(), "Londres", "Airbus", "10/11/12");
         CDG.creerVol("456", CDG.getNomAeroport(), "Paris", "Boeing", "04/12/15");
 
