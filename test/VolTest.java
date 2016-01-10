@@ -16,7 +16,7 @@ import java.util.Date;
 import static org.junit.Assert.*;
 
 /**
- * Created by Anaïs Ha and Marieme Ba on 23/12/2015.
+ * Created by Anaï¿½s Ha and Marieme Ba on 23/12/2015.
  */
 
 public class VolTest {
@@ -39,20 +39,20 @@ public class VolTest {
             Pilote p = new Pilote("Ha", "Anais");
             vol1.addPilote(p);
 
-            assertEquals(vol1.getPilote().getNom(), p.getNom());
-            assertEquals(vol1.getPilote().getPrenom(), p.getPrenom());
+            assertEquals(vol1.getEquipage().getPilote().getNom(), p.getNom());
+            assertEquals(vol1.getEquipage().getPilote().getPrenom(), p.getPrenom());
 
             Vol vol2 = new Vol("AF002", "Roissy", "Barcelone", avion1, "2/12/2015");
             Pilote p1 = new Pilote("Ba", "Marieme");
             vol2.addPilote(p1);
 
-            assertEquals(vol2.getPilote().getNom(), p1.getNom());
-            assertEquals(vol2.getPilote().getPrenom(), p1.getPrenom());
+            assertEquals(vol2.getEquipage().getPilote().getNom(), p1.getNom());
+            assertEquals(vol2.getEquipage().getPilote().getPrenom(), p1.getPrenom());
 
             Vol vol3 = new Vol("AF003", "Orly", "Madrid", avion2, "12/12/2015");
 
-            assertEquals(null, vol3.getPilote().getNom());
-            assertEquals(null, vol3.getPilote().getPrenom());
+            assertEquals(null, vol3.getEquipage().getPilote().getNom());
+            assertEquals(null, vol3.getEquipage().getPilote().getPrenom());
         } catch (InvariantBroken i) {
             System.out.println(i.getMessage());
         } catch (EquipageException e) {
@@ -68,20 +68,20 @@ public class VolTest {
             Copilote c = new Copilote("Ha", "Anais");
             vol1.addCoPilote(c);
 
-            assertEquals(vol1.getPilote().getNom(), c.getNom() );
-            assertEquals(vol1.getCopilote().getPrenom(), c.getPrenom());
+            assertEquals(vol1.getEquipage().getCopilote().getNom(), c.getNom() );
+            assertEquals(vol1.getEquipage().getPilote().getPrenom(), c.getPrenom());
 
             Vol vol2 = new Vol("AF002", "Roissy", "Barcelone", avion1, "11/12/2015");
             Copilote c1 = new Copilote("Ba", "Marieme");
             vol2.addCoPilote(c1);
 
-            assertEquals(vol2.getCopilote().getNom(), c1.getNom());
-            assertEquals(vol2.getCopilote().getPrenom(), c1.getPrenom());
+            assertEquals(vol2.getEquipage().getCopilote().getNom(), c1.getNom());
+            assertEquals(vol2.getEquipage().getCopilote().getPrenom(), c1.getPrenom());
 
             Vol vol3 = new Vol("AF003", "Orly", "Madrid", avion2, "12/12/2015");
 
-            assertEquals(null, vol3.getCopilote().getNom());
-            assertEquals(null, vol3.getCopilote().getPrenom());
+            assertEquals(null, vol3.getEquipage().getCopilote().getNom());
+            assertEquals(null, vol3.getEquipage().getCopilote().getPrenom());
         } catch (InvariantBroken i) {
             System.out.println(i.getMessage());
         } catch (EquipageException e) {
@@ -98,26 +98,26 @@ public class VolTest {
             Pnc p = new Pnc("Ha", "Anais");
             vol1.addPNC(p);
 
-            assertTrue("Le PNC existe : ", vol1.getListePnc().contains(p));
+            assertTrue("Le PNC existe : ", vol1.getEquipage().getListePnc().contains(p));
 
             Vol vol2 = new Vol("AF002", "Roissy", "Barcelone", avion1, "14/12/2015");
             Pnc p1 = new Pnc("Ba", "Marieme");
             vol2.addPNC(p1);
 
-            assertTrue("Le PNC existe : ", vol2.getListePnc().contains(p1));
-            assertFalse("Le PNC existe : ", vol2.getListePnc().contains(p));
+            assertTrue("Le PNC existe : ", vol2.getEquipage().getListePnc().contains(p1));
+            assertFalse("Le PNC existe : ", vol2.getEquipage().getListePnc().contains(p));
 
             Vol vol3 = new Vol("AF003", "Orly", "Madrid", avion2, "15/12/2015");
 
-            assertTrue(vol3.getListePnc().size() == 0);
+            assertTrue(vol3.getEquipage().getListePnc().size() == 0);
             vol3.addPNC(p);
             vol3.addPNC(p1);
 
-            assertTrue(vol3.getListePnc().size() == 2);
+            assertTrue(vol3.getEquipage().getListePnc().size() == 2);
 
             vol1.addPNC(p1);
-            assertTrue(vol1.getListePnc().contains(p));
-            assertFalse(vol1.getListePnc().contains(p1));
+            assertTrue(vol1.getEquipage().getListePnc().contains(p));
+            assertFalse(vol1.getEquipage().getListePnc().contains(p1));
         } catch (InvariantBroken i) {
             System.out.println(i.getMessage());
         } catch (EquipageException e) {

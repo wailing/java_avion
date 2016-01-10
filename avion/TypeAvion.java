@@ -4,41 +4,48 @@ import exception.EquipageException;
 import exception.InvariantBroken;
 import membreEquipe.Personne;
 
+import java.util.ArrayList;
+
 /**
- * Created by Anaïs Ha and Marieme Ba on 23/12/2015.
+ * Created by Anaï¿½s Ha and Marieme Ba on 23/12/2015.
  */
 public class TypeAvion {
 
     private String nom;
     private int min;
     private int max;
+    private ArrayList<Personne> listePersonneQualifiees;
 
     public TypeAvion(String nom, int min, int max) {
         this.nom = nom;
         this.min = min;
         this.max = max;
+        this.listePersonneQualifiees = new ArrayList<>();
     }
 
     public TypeAvion(String nom) {
         this.nom = nom;
         this.min = 1;
         this.max = 1;
+        this.listePersonneQualifiees = new ArrayList<>();
     }
 
     public void addQualifie(Personne m) throws EquipageException {
-        try {
-            m.addQualification(this);
-        } catch (InvariantBroken i) {
-            System.out.println(i.getMessage());
+        if(this.listePersonneQualifiees.contains(m)) {
+            throw new EquipageException("La personne est deja qualifiee pour ce type d'avion : " + this.toString());
         }
+        this.listePersonneQualifiees.add(m);
     }
 
     public void delQualifie(Personne m) throws EquipageException {
-        m.delQualification(this, true); /// fromType ???
+        if(!this.listePersonneQualifiees.contains(m)) {
+            throw new EquipageException("La personne n'est pas qualifiee pour ce type d'avion : " + this.toString() + " On ne peut donc pas supprimer une qualication inexistante !!!\n");
+        }
+        this.listePersonneQualifiees.remove(m);
     }
 
-    public void purgeQualifies()throws EquipageException, InvariantBroken { // ????
-
+    public void purgeQualifies()throws EquipageException, InvariantBroken {
+        this.listePersonneQualifiees.clear();
     }
 
     public String getNom() {
@@ -51,6 +58,10 @@ public class TypeAvion {
 
     public int getMaxPNC() {
         return max;
+    }
+
+    public ArrayList<Personne> getListePersonneQualifiees() {
+        return listePersonneQualifiees;
     }
 
     @Override

@@ -10,7 +10,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- * Created by Anaïs Ha and Marieme Ba on 23/12/2015.
+ * Created by Anaï¿½s Ha and Marieme Ba on 23/12/2015.
  */
 public class TypeAvionTest {
 
@@ -20,9 +20,9 @@ public class TypeAvionTest {
             Pilote pilote = new Pilote("Ha", "Anais");
             TypeAvion airbus = new TypeAvion("Airbus", 2, 3);
 
-            pilote.addQualification(airbus);
+            airbus.addQualifie(pilote);
 
-            assertTrue(pilote.getTypeAvionOperationnel().contains(airbus));
+            assertTrue(airbus.getListePersonneQualifiees().contains(pilote));
         } catch (InvariantBroken i) {
             System.out.println(i.getMessage());
         } catch (EquipageException e) {

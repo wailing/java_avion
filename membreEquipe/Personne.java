@@ -8,18 +8,16 @@ import exception.EquipageException;
 import exception.InvariantBroken;
 
 /**
- * Created by Anaïs Ha and Marieme Ba on 23/12/2015.
+ * Created by Anaï¿½s Ha and Marieme Ba on 23/12/2015.
  */
 public abstract class Personne {
     private String nom;
     private String prenom;
-    private ArrayList<TypeAvion> typeAvionOperationnel;
 
     public Personne(String nom, String prenom) throws InvariantBroken{
         if(nom == null || prenom == null) throw new InvariantBroken("Le nom ou le prenom est null !!");
         this.nom = nom;
         this.prenom = prenom;
-        this.typeAvionOperationnel = new ArrayList<>();
     }
 
     public String getNom() {
@@ -30,32 +28,30 @@ public abstract class Personne {
         return prenom;
     }
 
-    public ArrayList<TypeAvion> getTypeAvionOperationnel() {
-        return typeAvionOperationnel;
-    }
-
     public boolean peutVoler(TypeAvion t) {
-        if (this.typeAvionOperationnel.contains(t) && this.typeAvionOperationnel.size() >= 2) {
+        if (t.getListePersonneQualifiees().contains(this)) {
             return true;
         }
         return false;
     }
 
     public boolean addQualification(TypeAvion type) throws InvariantBroken, EquipageException {
-        if(type == null) throw new InvariantBroken("Le type d'avion passé est null");
-        if(this.typeAvionOperationnel.contains(type)) {
-            throw new EquipageException("Le type à ajouter existe déjà : " + type.toString() + "pour cette personne " + this.getNom() + " " + this.getPrenom());
-        }
+        if(type == null) throw new InvariantBroken("Le type d'avion passï¿½ est null");
+        if(this.peutVoler(type)) throw new EquipageException("La personne est deja qualifiee pour ce type : " + type.toString());
         else {
-            this.typeAvionOperationnel.add(type);
+            type.addQualifie(this);
             return true;
         }
     }
 
     public boolean delQualification(TypeAvion type, boolean fromType){  //a quoi sert fromType ??????
-        if(this.typeAvionOperationnel.contains(type)) {
-            this.typeAvionOperationnel.remove(type);
-            return true;
+        if(this.peutVoler(type)) {
+            try {
+                type.delQualifie(this);
+                return true;
+            } catch (EquipageException e) {
+                System.out.println(e.getMessage());
+            }
         }
         return false;
     }
@@ -66,9 +62,6 @@ public abstract class Personne {
     public String toString() {
         String resultat = "\nNom : " + getNom();
         resultat += "\nPrenom : " + getPrenom();
-        for (int i = 0; i < getTypeAvionOperationnel().size(); i++) {
-            resultat += "\nType d'avion Operationnel : " + getTypeAvionOperationnel().get(i);
-        }
         return resultat;
     }
 }

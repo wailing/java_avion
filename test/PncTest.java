@@ -9,7 +9,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- * Created by Anaïs Ha and Marieme Ba on 23/12/2015.
+ * Created by Anaï¿½s Ha and Marieme Ba on 23/12/2015.
  */
 public class PncTest {
 
@@ -34,7 +34,7 @@ public class PncTest {
         TypeAvion boeing = new TypeAvion("Boeing", 3, 4);
 
         pnc.addQualification(boeing);
-        assertTrue(pnc.getTypeAvionOperationnel().contains(boeing));
+        assertTrue(pnc.peutVoler(boeing));
     }
 
     @Test
