@@ -2,7 +2,6 @@ package affichageVols;
 
 import avion.Avion;
 import avion.TypeAvion;
-import exception.DejaExistantException;
 import exception.EquipageException;
 import exception.InvariantBroken;
 import exception.NullException;
@@ -12,19 +11,19 @@ import membreEquipe.Pilote;
 import membreEquipe.Pnc;
 import vol.Vol;
 
-import java.lang.reflect.Type;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by Ana�s Ha and Marieme Ba on 23/12/2015.
  */
-public class TableauVols {
-     class Aeroport {
+public class TableauVols implements Serializable {
+     class Aeroport implements Serializable {
         private String nomAeroport;
-        private ArrayList<Personne> listePersonne;
-        private ArrayList<Vol> listeVols;
-        private ArrayList<Avion> listeAvion;
-        private ArrayList<TypeAvion> listeTypeAvion;
+        private  ArrayList<Personne> listePersonne;
+        private  ArrayList<Vol> listeVols;
+        private  ArrayList<Avion> listeAvion;
+        private  ArrayList<TypeAvion> listeTypeAvion;
 
         public Aeroport (String nom) {
             this.nomAeroport = nom;
@@ -66,7 +65,7 @@ public class TableauVols {
 
     private Avion trouverAvion(Aeroport aeroport, String reference) throws NullException{
         for (int i = 0; i < aeroport.getListeAvion().size(); i++) {
-            if(aeroport.getListeAvion().get(i).getReference() == reference) {
+            if(aeroport.getListeAvion().get(i).getReference().equals(reference)) {
                 return aeroport.getListeAvion().get(i);
             }
         }
@@ -75,7 +74,7 @@ public class TableauVols {
 
     private TypeAvion trouverTypeAvion(Aeroport aeroport, String nomTypeAvion) throws NullException{
         for (int i = 0; i < aeroport.getListeTypeAvion().size(); i++) {
-            if(aeroport.getListeTypeAvion().get(i).getNom() == nomTypeAvion) {
+            if(aeroport.getListeTypeAvion().get(i).getNom().equals(nomTypeAvion)) {
                 return aeroport.getListeTypeAvion().get(i);
             }
         }
@@ -84,7 +83,7 @@ public class TableauVols {
 
     private Personne trouverPersonne(Aeroport aeroport, String nom, String prenom, String fonction) throws NullException{
         for (int i = 0; i < aeroport.getListePersonne().size(); i++) {
-            if(aeroport.getListePersonne().get(i).getNom() == nom && aeroport.getListePersonne().get(i).getPrenom() == prenom && aeroport.getListePersonne().get(i).getFonction() == fonction) {
+            if(aeroport.getListePersonne().get(i).getNom().equals(nom) && aeroport.getListePersonne().get(i).getPrenom().equals(prenom) && aeroport.getListePersonne().get(i).getFonction().equals(fonction)) {
                 return aeroport.getListePersonne().get(i);
             }
         }
@@ -93,7 +92,7 @@ public class TableauVols {
 
     private Vol trouverVol(Aeroport aeroport, String numVol) throws NullException{
         for (int i = 0; i < aeroport.getListeVols().size(); i++) {
-            if(aeroport.getListeVols().get(i).getNumero() == numVol) {
+            if(aeroport.getListeVols().get(i).getNumero().equals(numVol)) {
                 return aeroport.getListeVols().get(i);
             }
         }
@@ -111,6 +110,7 @@ public class TableauVols {
 
     public void creerPnc(String nom, String prenom){
         try {
+
             Pnc pnc = new Pnc(nom, prenom);
             aeroport.getListePersonne().add(pnc);
         } catch (InvariantBroken i) {
@@ -178,7 +178,13 @@ public class TableauVols {
     public void supprimerAvion(String reference) {
         try {
             Avion av = trouverAvion(aeroport, reference);
+            for(int i = 0; i < getListeVols().size(); i++) {
+                if(getListeVols().get(i).getAvion().equals(av)) {
+                    getListeVols().get(i).setAvion(null);
+                }
+            }
             aeroport.getListeAvion().remove(av);
+
         } catch (NullException n) {
             System.out.println(n.getMessage());
         }
@@ -188,9 +194,14 @@ public class TableauVols {
         try {
             TypeAvion typeAvion = trouverTypeAvion(aeroport, nom);
             //supprimer la qualif du type d'avion supprimer a toutes les personnes !!! ( peut etre a faire dans personne)
+            typeAvion.purgeQualifies();
             aeroport.getListeTypeAvion().remove(typeAvion);
         } catch (NullException n) {
             System.out.println(n.getMessage());
+        } catch (EquipageException e) {
+            System.out.println(e.getMessage());
+        } catch (InvariantBroken i) {
+            System.out.println(i.getMessage());
         }
     }
 
@@ -260,9 +271,25 @@ public class TableauVols {
     public void afficherVolMembreEquipe(String nomMembre, String prenomMembre, String fonction, String num) {
      //a
         try {
+            System.out.println("\n\n*****************AFFICHAGE VOL D'UN MEMBRE ***************\n\n ");
             Vol vol = trouverVol(aeroport, num);
             Personne membre = trouverPersonne(aeroport, nomMembre, prenomMembre, fonction);
-            System.out.println(vol.toString());
+            for (int i = 0; i < getListeVols().size(); i++) {
+                if (fonction.equals(Pilote) && Pilote.equals(membre.getFonction())) {
+                    if (vol.getEquipage().getPilote().getNom() == nomMembre && vol.getEquipage().getPilote().getPrenom()== prenomMembre) {
+                        System.out.println(getListeVols().get(i).toString());
+                    }
+                }
+                else if (fonction.equals(Copilote) && Copilote == membre.getFonction()) {
+                    if (vol.getEquipage().getCopilote().getNom() == nomMembre && vol.getEquipage().getCopilote().getPrenom()== prenomMembre) {
+                        System.out.println(getListeVols().get(i).toString());
+                    }
+                }
+                else if (fonction.equals(PNC) && PNC == membre.getFonction()) {
+                    System.out.println(getListeVols().get(i).toString());
+                }
+            }
+            System.out.println("\n\n*****************AFFICHAGE VOL D'UN MEMBRE ***************\n\n");
         } catch (NullException n) {
             System.out.println(n.getMessage());
         }
@@ -288,5 +315,42 @@ public class TableauVols {
         return aeroport.getListeTypeAvion();
     }
 
-
+    public String toString() {
+        String chaine = "LISTE DES AEROPORTS \n\n";
+        chaine += "NOM : " + this.getNomAeroport() +"\n";
+        if (getListePersonne().size() == 0) {
+        chaine += "\n\nIl n'y a personne dans l'aeroport";
+        }
+        else {
+            for (int i = 0; i < getListePersonne().size(); i++) {
+                chaine += "\n"+ getListePersonne().get(i).toString();
+            }
+        }
+        if (getListeAvion().size() == 0) {
+            chaine += "\n\nIl n'y a pas d'avion dans l'aeroport";
+        }
+        else {
+            for (int i = 0; i < getListeAvion().size(); i++) {
+                chaine += "\n" + getListeAvion().get(i).toString();
+            }
+        }
+        if (getListeTypeAvion().size() == 0) {
+            chaine += "\n\nIl n'y a pas de type d'avion dans l'aeroport";
+        }
+        else {
+            for (int i = 0; i < getListeTypeAvion().size(); i++) {
+                chaine += "\n" + getListeTypeAvion().get(i).toString();
+            }
+        }
+        if (getListeVols().size() == 0) {
+            chaine += "\n\nIl n'y a pas de type d'avion dans l'aeroport";
+        }
+        else {
+            for (int i = 0; i < getListeVols().size(); i++) {
+                chaine += "\n" + getListeVols().get(i).toString();
+            }
+        }
+        chaine += "\n\n*****************************************************";
+        return chaine;
+    }
 }

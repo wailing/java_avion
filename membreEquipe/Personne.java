@@ -2,15 +2,20 @@ package membreEquipe;
 
 import avion.TypeAvion;
 
+import java.io.Serializable;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import exception.EquipageException;
 import exception.InvariantBroken;
+import persistance.ConnexionBD;
 
 /**
  * Created by Ana�s Ha and Marieme Ba on 23/12/2015.
  */
-public abstract class Personne {
+public abstract class Personne implements Serializable {
     private String nom;
     private String prenom;
 

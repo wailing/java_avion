@@ -1,19 +1,25 @@
 package vol;
 
 import avion.Avion;
+
+import persistance.ConnexionBD;
 import vol.Equipage;
 import exception.EquipageException;
 import membreEquipe.Copilote;
 import membreEquipe.Pilote;
 import membreEquipe.Pnc;
 
+import java.io.Serializable;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 
 /**
  * Created by Ana�s Ha and Marieme Ba on 23/12/2015.
  */
-public class Vol {
+public class Vol implements Serializable {
     private String numero;
     private String site;
     private String destination;
@@ -28,6 +34,18 @@ public class Vol {
         this.avion = av;
         this.dateDepart = dep;
         this.equipage = new Equipage(this);
+        try {
+            Connection connexion = ConnexionBD.getConnexionBD();
+            PreparedStatement ps =connexion.prepareStatement("INSERT INTO Vols (numero, site, destination, nomAvion, date_depart) VALUES (?,?,?,?,?)");
+            ps.setString(1, num);
+            ps.setString(2, site);
+            ps.setString(3, dest);
+            ps.setString(4, av.getReference());
+            ps.setString(5, dep);
+            ps.executeUpdate();
+        }catch (SQLException S) {
+            S.printStackTrace();
+        }
     }
 
     public Vol(String num, String dep) {
@@ -116,6 +134,10 @@ public class Vol {
         else {
             throw new EquipageException("Le PNC de l'equipage n'existe pas\n");
         }
+    }
+
+    public void setAvion(Avion avion) {
+        this.avion = avion;
     }
 
     @Override

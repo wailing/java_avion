@@ -4,12 +4,13 @@ import exception.EquipageException;
 import exception.InvariantBroken;
 import membreEquipe.Personne;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by Ana�s Ha and Marieme Ba on 23/12/2015.
  */
-public class TypeAvion {
+public class TypeAvion implements Serializable {
 
     private String nom;
     private int min;

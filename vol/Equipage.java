@@ -5,12 +5,13 @@ import membreEquipe.Copilote;
 import membreEquipe.Pilote;
 import membreEquipe.Pnc;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by anais on 09/01/2016.
  */
-public class Equipage {
+public class Equipage implements Serializable {
         private boolean auMin;
         private boolean auMax;
         private Pilote pilote;
