@@ -17,13 +17,14 @@ public class InterfaceBase extends JFrame {
         setTitle("Interface Application Marieme et Anais ");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        tableau = new JTable(modele);
+
 
 
         JPanel boutons = new JPanel();
 
         boutons.add(new JButton(new EmployeAction()));
         boutons.add(new JButton(new ManagerAction()));
+        boutons.add(new JButton(new AdministrateurAction()));
 
         getContentPane().add(boutons, BorderLayout.SOUTH);
 
@@ -31,26 +32,38 @@ public class InterfaceBase extends JFrame {
     }
 
 
-private class EmployeAction extends AbstractAction {
-    private EmployeAction() {
-        super("Employe");
-    }
+    private class EmployeAction extends AbstractAction {
+        private EmployeAction() {
+            super("Employe");
+        }
 
-    public void actionPerformed(ActionEvent e) {
-        new InterfaceBase().setVisible(true);
+        public void actionPerformed(ActionEvent e) {
+            new AffichageEmploye().setVisible(true);
         }
     }
 
 
-private class ManagerAction extends AbstractAction {
-    private ManagerAction() {
-        super("Manager");
+    private class ManagerAction extends AbstractAction {
+        private ManagerAction() {
+            super("Manager");
+        }
+
+        public void actionPerformed(ActionEvent e) {
+
+            new TableauAffichageManager().setVisible(true);
+        }
     }
 
-    public void actionPerformed(ActionEvent e) {
 
-        new TableauAffichageManager().setVisible(true);
+    private class AdministrateurAction extends AbstractAction {
+        private AdministrateurAction() {
+            super("Administrateur");
+        }
+
+        public void actionPerformed(ActionEvent e) {
+
+            new TableauAffichageAdministateur().setVisible(true);
+        }
     }
-}
 }
 

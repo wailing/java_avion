@@ -26,12 +26,11 @@ public class TableauAffichageManager extends JFrame {
 
         JPanel boutons = new JPanel();
 
-        boutons.add(new JButton(new AddAction()));
+        boutons.add(new JButton(new ModifAction()));
         boutons.add(new JButton(new RemoveAction()));
         boutons.add(new JButton(new RetourAction()));
 
         getContentPane().add(boutons, BorderLayout.SOUTH);
-
         pack();
     }
 
@@ -48,35 +47,15 @@ public class TableauAffichageManager extends JFrame {
             }
         }
     }
-    private class AddAction extends AbstractAction {
-        private AddAction() {
-            super("Ajouter");
+    private class ModifAction extends AbstractAction {
+        private ModifAction() {
+            super("Modifier les affectations");
         }
-
         public void actionPerformed(ActionEvent e) {
-            //new JTableBasiqueAvecModeleDynamiqueObjet().setVisible(true);
-            TableauVols CDG = new TableauVols("CDG");
-            CDG.creerTypeAvion("Airbus A380", 2, 3);
-            CDG.creerAvion("Airbus", "Airbus A380");
-            CDG.creerVol("123", CDG.getNomAeroport(), "Londres", "Airbus", "10/11/12");
-            CDG.creerPilote("Ha", "Anais");
-            CDG.creerCopilote("Ba", "Marieme");
-            CDG.creerPnc("Chau", "Mickael");
-            CDG.creerPnc("Ha", "Anais");
-
-            CDG.qualifierMembreEquipage("Ha", "Anais", "Pilote", "Airbus A380");
-            CDG.qualifierMembreEquipage("Ba", "Marieme", "Copilote", "Airbus A380");
-            CDG.qualifierMembreEquipage("Ha", "Anais", "PNC", "Airbus A380");
-            CDG.qualifierMembreEquipage("Chau", "Mickael", "PNC", "Airbus A380");
-
-            CDG.affecterMembreVol("Ha", "Anais", "Pilote", "123");
-            CDG.affecterMembreVol("Ha", "Anais", "PNC", "123");
-            CDG.affecterMembreVol("Ba", "Marieme", "Copilote", "123");
-            CDG.affecterMembreVol("Chau", "Mickael", "PNC", "123");
-            VolTab vol = new VolTab(CDG.getListeVols().get(0).getAvion().getReference(), CDG.getListeVols().get(0).getNumero(), CDG.getListeVols().get(0).getDestination(), CDG.getListeVols().get(0).getDateDepart(), CDG.getListeVols().get(0).getAvion().getType().getNom(), CDG.getNomAeroport() ,CDG.getListeVols().get(0).getEquipage().getPilote().getNom(), CDG.getListeVols().get(0).getEquipage().getPilote().getPrenom(), CDG.getListeVols().get(0).getEquipage().getPilote().getFonction());
-            modele.addAmi(vol);
+            new AffectationManager().start();
         }
     }
+
     private class RetourAction extends AbstractAction {
         private RetourAction() {
             super("Retour");
@@ -84,6 +63,7 @@ public class TableauAffichageManager extends JFrame {
 
         public void actionPerformed(ActionEvent e) {
             new InterfaceBase().setVisible(true);
+            dispose();
         }
     }
 }
